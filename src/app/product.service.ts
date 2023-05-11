@@ -1,32 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:3000';
+  private products: Product[] = [
+    { id: 1, name: 'Product 1', description: 'Description 1' },
+    { id: 2, name: 'Product 2', description: 'Description 2' },
+    { id: 3, name: 'Product 3', description: 'Description 3' }
+  ];
 
-  constructor(private http: HttpClient) {}
+  private productsSubject: BehaviorSubject<Product[]> = new BehaviorSubject<Product[]>(this.products);
 
-  getAllProducts(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/products`);
+  constructor() {}
+
+  getProducts(): Observable<Product[]> {
+    return this.productsSubject.asObservable();
   }
 
-  getProductById(productId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/products/${productId}`);
+  addProduct(product: Product): void {
+    const newProduct: Product = { ...product, id: this.products.length + 1 };
+    this.products.push(newProduct);
+    this.productsSubject.next(this.products);
   }
 
-  createProduct(product: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/products`, product);
-  }
-
-  updateProduct(productId: string, product: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/products/${productId}`, product);
-  }
-
-  deleteProduct(productId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/products/${productId}`);
+  getProductById(id: number): Product | undefined {
+    return this.products.find(product => product.id === id);
   }
 }
