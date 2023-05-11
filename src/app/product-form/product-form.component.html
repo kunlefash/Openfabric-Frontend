@@ -1,0 +1,50 @@
+<h2>Add Product</h2>
+<button mat-button routerLink="/">Back to Home</button>
+
+<form (ngSubmit)="onSubmit()" #productForm="ngForm">
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Name"
+      [(ngModel)]="newProduct.name"
+      name="
+    name"
+      required
+    />
+    <mat-error
+      *ngIf="
+        productForm.controls['name'].invalid &&
+        productForm.controls['name'].touched
+      "
+    >
+      Name is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea
+      matInput
+      placeholder="Description"
+      [(ngModel)]="newProduct.description"
+      name="description"
+      required
+    ></textarea>
+    <mat-error
+      *ngIf="
+        productForm.controls['description'].invalid &&
+        productForm.controls['description'].touched
+      "
+    >
+      Description is required.
+    </mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="productForm.invalid"
+  >
+    Save
+  </button>
+</form>
