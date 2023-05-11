@@ -1,45 +1,75 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { ProductFormComponent } from './product-form/product-form.component';
-import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductComponent } from './product/product.component';
+import { DetailsComponent } from './details/details.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule} from '@angular/material/card'; // 
+import { NavbarComponent } from './navbar/navbar.component';
+import { Routes, RouterModule } from '@angular/router';
+import { ProductsComponent } from './products/products.component';
 
-const appRoutes: Routes = [
-  { path: '', redirectTo: '/products', pathMatch: 'full' },
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/add', component: ProductFormComponent },
-  { path: 'products/:id', component: ProductDetailComponent }
-];
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
+
+const routes: Routes = [
+  {
+    path: '',
+    component: ProductsComponent
+  },
+  {
+    path: 'details/:productId',
+    component: DetailsComponent
+  },
+  {
+    path: 'add-product',
+    component: AddProductComponent
+  },
+  {
+    path: 'edit-product/:productId',
+    component: EditProductComponent
+  },
+
+]
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent,
-    ProductFormComponent,
-    ProductDetailComponent
+    ProductComponent,
+    DetailsComponent,
+    AddProductComponent,
+    NavbarComponent,
+    ProductsComponent,
+    EditProductComponent
   ],
   imports: [
-    BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule,
+    CommonModule,
     ReactiveFormsModule,
-    MatButtonModule,
     MatInputModule,
-    MatFormFieldModule,
+    MatButtonModule,
+    MatGridListModule,
+    MatSelectModule,
+    RouterModule.forRoot(routes),
+    BrowserModule,
+    MatToolbarModule,
+    MatCardModule,    
     MatIconModule,
-    MatTableModule
+    MatSidenavModule,
+    MatListModule
   ],
+
   providers: [],
   bootstrap: [AppComponent]
 })
