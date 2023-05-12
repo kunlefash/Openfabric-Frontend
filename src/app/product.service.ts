@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
-  private apiUrl = 'https://your-api-url/products';
+  private apiUrl = 'https://localhost:300/products';
 
   constructor(private http: HttpClient) {}
 
@@ -20,5 +20,12 @@ export class ProductService {
 
   addProduct(product: any): Observable<any> {
     return this.http.post(this.apiUrl, product);
+  }
+  updateProduct(id: number, product: any): Observable<any> {
+    return this.http.put(this.apiUrl, product);
+  }
+
+  deleteProduct(id: number) {
+    return this.http.delete(this.apiUrl);
   }
 }

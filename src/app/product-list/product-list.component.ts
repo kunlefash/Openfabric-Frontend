@@ -4,7 +4,7 @@ import { ProductService } from '../product.service';
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'description'];
@@ -12,23 +12,23 @@ export class ProductListComponent implements OnInit {
     {
       id: 1,
       name: 'Product 1',
-      description: 'Description of Product 1'
+      description: 'Description of Product 1',
     },
     {
       id: 2,
       name: 'Product 2',
-      description: 'Description of Product 2'
+      description: 'Description of Product 2',
     },
     {
       id: 3,
       name: 'Product 3',
-      description: 'Description of Product 3'
+      description: 'Description of Product 3',
     },
     {
       id: 4,
       name: 'Product 4',
-      description: 'Description of Product 4'
-    }
+      description: 'Description of Product 4',
+    },
   ];
 
   constructor(private productService: ProductService) {}
@@ -40,6 +40,11 @@ export class ProductListComponent implements OnInit {
   getProducts(): void {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
+    });
+  }
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.products = this.products.filter((product) => product.id !== id);
     });
   }
 }
